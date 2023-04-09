@@ -1,1 +1,26 @@
-<p>address-confirmation works!</p>
+<h1>Address Confirmation</h1>
+<h2>Address you provided:</h2>
+<div *ngIf="providedAddress">
+  <div *ngIf="providedAddress.unitNumber">Unit #: {{ providedAddress.unitNumber }}</div>
+  <div>{{ providedAddress.streetNumber }} {{ providedAddress.streetName }} {{ providedAddress.streetType }}</div>
+  <div>{{ providedAddress.city }}, ON</div>
+  <div>{{ providedAddress.postalCode }}</div>
+</div>
+
+<h2>Which address would you like to use? Canada Post suggests:</h2>
+<form [formGroup]="addressForm" (ngSubmit)="onSubmit()">
+  <label *ngFor="let choice of homeAddressChoices; let i = index">
+    <input type="radio" formControlName="selectedAddress" [value]="choice" />
+    <div>
+      <div *ngIf="choice.unitNumber">Unit #: {{ choice.unitNumber }}</div>
+      <div>{{ choice.streetNumber }} {{ choice.streetName }} {{ choice.streetType }}</div>
+      <div>{{ choice.municipality }}, ON</div>
+      <div>{{ choice.postalCode }}</div>
+    </div>
+  </label>
+  <label>
+    <input type="radio" formControlName="selectedAddress" [value]="providedAddress" />
+    <span>Address you provided</span>
+  </label>
+  <button type="submit">Confirm Address</button>
+</form>

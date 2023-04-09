@@ -1,1 +1,20 @@
-<button routerLink="/address-confirmation">Continue</button>
+<form [formGroup]="addressForm" (ngSubmit)="onSubmit()">
+    <div *ngIf="addressForm.invalid && (addressForm.dirty || addressForm.touched)" class="error">
+      <i class="error-icon">!</i> Please fill in all required fields.
+    </div>
+    <input formControlName="unitNumber" placeholder="Apartment or Unit Number">
+    <input formControlName="streetNumber" placeholder="Street Number" required>
+    <input formControlName="streetName" placeholder="Street Name" required>
+    <select formControlName="streetType" required>
+      <option value="">Select Street Type</option>
+      <option value="Alley">Alley</option>
+      <option value="Avenue">Avenue</option>
+      <option value="Boulevard">Boulevard</option>
+      <option value="Circle">Circle</option>
+      <option value="Drive">Drive</option>
+      <option value="Street">Street</option>
+    </select>
+    <input formControlName="city" placeholder="City or Town" required>
+    <input formControlName="postalCode" placeholder="Postal Code" required>
+    <button type="submit">Continue</button>
+  </form>
